@@ -5,7 +5,7 @@ pipeline {
         stage('Build & Install Dependencies') {
             steps {
                 script {
-                    sh 'npm install'
+                    bat 'npm install'
                 }
             }
         }
@@ -13,7 +13,7 @@ pipeline {
         stage('Security Audit') {
             steps {
                 script {
-                    sh 'npm audit --json > audit-report.json || true'
+                    bat 'npm audit --json > audit-report.json || true'
                 }
             }
         }
@@ -21,7 +21,7 @@ pipeline {
         stage('Run Unit Tests & Code Coverage') {
             steps {
                 script {
-                    sh 'npm test'
+                    bat 'npm test'
                 }
             }
         }
