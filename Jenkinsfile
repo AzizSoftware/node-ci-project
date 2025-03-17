@@ -21,14 +21,25 @@ pipeline {
         stage('Run Unit Tests & Code Coverage') {
             steps {
                 script {
-                    bat 'npm test'
+                    bat 'npm test -- --coverage'
                 }
             }
         }
-        stage("code coverage"){
-            steps{
-                bat 'npm run coverage'
+
+        stage('Archive Code Coverage') {
+            steps {
+                script {
+                    bat 'mkdir coverage-report'
+                    bat 'xcopy /E /I /Y coverage coverage-report'
+                }
+                archiveArtifacts artifacts: 'coverage-report/**', fingerprint: true
             }
+        }
+    }
+
+    post {
+        always {
+            junit '**/coverage/**/lcov-report/index.html'
         }
     }
 }
