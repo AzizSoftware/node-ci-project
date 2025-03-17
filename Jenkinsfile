@@ -25,5 +25,10 @@ pipeline {
                 }
             }
         }
+        stage("code coverage"){
+            steps{
+                bat 'npm run coverage'
+            }
+        }
     }
 }
