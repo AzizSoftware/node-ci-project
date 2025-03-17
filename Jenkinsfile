@@ -21,25 +21,20 @@ pipeline {
         stage('Run Unit Tests & Code Coverage') {
             steps {
                 script {
-                    bat 'npm test -- --coverage'
+                    bat 'npm test -- --coverage --testResultsProcessor="jest-junit"'
                 }
             }
         }
 
-        stage('Archive Code Coverage') {
+        stage('Archive Test & Coverage Reports') {
             steps {
                 script {
                     bat 'mkdir coverage-report'
                     bat 'xcopy /E /I /Y coverage coverage-report'
                 }
                 archiveArtifacts artifacts: 'coverage-report/**', fingerprint: true
+                junit 'jest-junit.xml'
             }
-        }
-    }
-
-    post {
-        always {
-            junit '**/coverage/**/lcov-report/index.html'
         }
     }
 }
