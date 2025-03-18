@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "ci-project": "file:",
     "express": "^4.21.2"
   },
   "devDependencies": {
@@ -22,8 +23,13 @@
   "jest": {
     "reporters": [
       "default",
-      ["jest-junit", { "outputDirectory": ".", "outputName": "jest-junit.xml" }]
+      [
+        "jest-junit",
+        {
+          "outputDirectory": ".",
+          "outputName": "jest-junit.xml"
+        }
+      ]
     ]
   }
-
 }

@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    environment{
+        SONAR_SCANNER_HOME= tool 'SonarQube';
+    }
     stages {
         stage('Build & Install Dependencies') {
             steps {
@@ -35,6 +37,12 @@ pipeline {
                 }
                 archiveArtifacts artifacts: 'coverage-report/**', fingerprint: true
                 junit 'jest-junit.xml'
+            }
+        }
+        stage('SAST-SonarQubeAnalayses'){
+
+            steps{
+                bat 'sonar-scanner.bat -D"sonar.projectKey=solar-system" -D"sonar.sources=." -D"sonar.host.url=http://localhost:9000" -D"sonar.token=sqp_785d6c526f89b6c7385610c55a979c6f6ff17056"'
             }
         }
     }
