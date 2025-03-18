@@ -1,7 +1,8 @@
 pipeline {
     agent any
     environment{
-        SONAR_SCANNER_HOME= tool 'SonarQube';
+        SONAR_SCANNER_HOME= 'C:\SonarQube\sonarqube-25.3.0.104237';
+        PATH = "${SONAR_SCANNER_HOME}\\bin;${env.PATH}"
     }
     stages {
         stage('Build & Install Dependencies') {
