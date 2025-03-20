@@ -70,6 +70,8 @@ pipeline {
                         bat "docker push -t aziz224/my-docker-repo:${dockerTag} ."
                     }
                 }
+
+            }
         }
     }
 }
