@@ -1,8 +1,7 @@
 pipeline {
     agent any
-    environment{
-        SONAR_SCANNER_HOME= 'C:\SonarQube\sonarqube-25.3.0.104237';
-        PATH = "${SONAR_SCANNER_HOME}\\bin;${env.PATH}"
+    environment {
+        SONAR_SCANNER_HOME = tool 'SonarQube'
     }
     stages {
         stage('Build & Install Dependencies') {
@@ -40,10 +39,14 @@ pipeline {
                 junit 'jest-junit.xml'
             }
         }
-        stage('SAST-SonarQubeAnalayses'){
 
-            steps{
-                bat 'sonar-scanner.bat -D"sonar.projectKey=solar-system" -D"sonar.sources=." -D"sonar.host.url=http://localhost:9000" -D"sonar.token=sqp_785d6c526f89b6c7385610c55a979c6f6ff17056"'
+        stage('SAST-SonarQubeAnalayses') {
+            steps {
+                ${SONAR_SCANNER_HOME}/bin/sonar-scanner.bat 
+                -D"sonar.projectKey=node-ci" 
+                -D"sonar.sources=." 
+                -D"sonar.host.url=http://localhost:9000" 
+                -D"sonar.token=sqp_1a5282d36801648ac3376c9b00f30c5f5b0db3ef"
             }
         }
     }
