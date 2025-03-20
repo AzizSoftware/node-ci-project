@@ -42,7 +42,9 @@ pipeline {
 
         stage('SAST-SonarQubeAnalayses') {
             steps {
-                sonar-scanner.bat -D"sonar.projectKey=node-ci" -D"sonar.sources=." -D"sonar.host.url=http://localhost:9000" -D"sonar.token=sqp_1a5282d36801648ac3376c9b00f30c5f5b0db3ef"
+                bat '''
+                    sonar-scanner.bat -D"sonar.projectKey=node-ci" -D"sonar.sources=." -D"sonar.host.url=http://localhost:9000" -D"sonar.token=sqp_1a5282d36801648ac3376c9b00f30c5f5b0db3ef"
+                '''
             }
         }
     }
