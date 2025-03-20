@@ -47,18 +47,15 @@ pipeline {
             }
         }
 
-        stage('Debug Workspace') {
-            steps {
-                script {
-                    bat 'dir' // List files to verify Dockerfile exists
-                }
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                 script {
-                    bat 'docker build -t aziz224/my-docker-repo:${env.GIT_COMMIT ?: "latest"} .'
+                    // Dynamically set the Docker image tag
+                    def dockerTag = env.GIT_COMMIT ?: "latest"
+                    echo "Building Docker image with tag: ${dockerTag}"
+                    
+                    // Execute the Docker build command
+                    bat "docker build -t aziz224/my-docker-repo:${dockerTag} ."
                 }
             }
         }
