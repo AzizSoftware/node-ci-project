@@ -54,23 +54,24 @@ pipeline {
                     def dockerTag = env.GIT_COMMIT ?: "latest"
                     echo "Building Docker image with tag: ${dockerTag}"
                     
-                    // Execute the Docker build command
-                    bat "docker build -t aziz224/my-docker-repo:${dockerTag} ."
+                    // Execute the Docker build command with the correct repository name
+                    bat "docker build -t aziz244/my-docker-repo:${dockerTag} ."
                 }
             }
         }
 
-        stage('pushing docker image ') {
+        stage('Pushing Docker Image') {
             steps {
                 script {
-                    // Dynamically set the Docker image tag
-                    withDockerRegistry(credentialsId: 'dokcer-hub-credentials', url: "") {
+                    // Use Docker Hub credentials for authentication
+                    withDockerRegistry(credentialsId: 'dokcer-hub-credentials', url: 'https://index.docker.io/v1/') {
                         def dockerTag = env.GIT_COMMIT ?: "latest"
-                        echo "Building Docker image with tag: ${dockerTag}"
-                        bat "docker push  aziz244/my-docker-repo:${dockerTag} "
+                        echo "Pushing Docker image with tag: ${dockerTag}"
+                        
+                        // Push the Docker image to the correct repository on Docker Hub
+                        bat "docker push aziz244/my-docker-repo:${dockerTag}"
                     }
                 }
-
             }
         }
     }
