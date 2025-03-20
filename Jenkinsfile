@@ -47,5 +47,12 @@ pipeline {
                 '''
             }
         }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    bat 'docker build -t my-node-app:latest .'
+                }
+            }
+        }
     }
 }
