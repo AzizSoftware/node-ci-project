@@ -67,7 +67,7 @@ pipeline {
                     withDockerRegistry(credentialsId: 'dokcer-hub-credentials', url: "") {
                         def dockerTag = env.GIT_COMMIT ?: "latest"
                         echo "Building Docker image with tag: ${dockerTag}"
-                        bat "docker push  aziz224/my-docker-repo:${dockerTag} "
+                        bat "docker push  aziz244/my-docker-repo:${dockerTag} "
                     }
                 }
 
