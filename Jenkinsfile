@@ -41,13 +41,17 @@ pipeline {
         }
 
         stage('SAST-SonarQubeAnalayses') {
-            
+            steps {
+                script {
+                    echo "Hello SAST"
+                }
+            }
         }
+
         stage('Build Docker Image') {
             steps {
                 script {
-                    
-                    bat 'docker build -t aziz224/my-docker-repo:$GIT_COMMIT .'
+                    bat 'docker build -t aziz224/my-docker-repo:%GIT_COMMIT% .'
                 }
             }
         }
