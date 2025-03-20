@@ -39,7 +39,7 @@ pipeline {
             }
         }
 
-        stage('SAST-SonarQubeAnalayses') {
+        stage('SAST-SonarQubeAnalyses') {
             steps {
                 script {
                     echo "Hello SAST"
@@ -54,7 +54,7 @@ pipeline {
                     def dockerTag = env.GIT_COMMIT ?: "latest"
                     echo "Building Docker image with tag: ${dockerTag}"
                     
-                    // Execute the Docker build command with the correct repository name
+                    // Execute the Docker build command
                     bat "docker build -t aziz244/my-docker-repo:${dockerTag} ."
                 }
             }
@@ -68,7 +68,7 @@ pipeline {
                         def dockerTag = env.GIT_COMMIT ?: "latest"
                         echo "Pushing Docker image with tag: ${dockerTag}"
                         
-                        // Push the Docker image to the correct repository on Docker Hub
+                        // Push the Docker image
                         bat "docker push aziz244/my-docker-repo:${dockerTag}"
                     }
                 }
