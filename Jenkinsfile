@@ -31,7 +31,6 @@ pipeline {
         stage('Archive Test & Coverage Reports') {
             steps {
                 script {
-                    // ✅ Check if the folder exists before creating it
                     bat 'if not exist coverage-report mkdir coverage-report'
                     bat 'xcopy /E /I /Y coverage coverage-report'
                 }
@@ -48,10 +47,18 @@ pipeline {
             }
         }
 
+        stage('Debug Workspace') {
+            steps {
+                script {
+                    bat 'dir' // List files to verify Dockerfile exists
+                }
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
                 script {
-                    bat 'docker build -t aziz224/my-docker-repo:latest .'
+                    bat 'docker build -t aziz224/my-docker-repo:${env.GIT_COMMIT ?: "latest"} .'
                 }
             }
         }
