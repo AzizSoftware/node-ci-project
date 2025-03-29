@@ -13,8 +13,10 @@
     # Copy the rest of the application files
     COPY . .
 
+     # Define the command to run the application
+     CMD ["node", "server.js"]
+
     # Expose the application port (change if needed)
     EXPOSE 3005
 
-    # Define the command to run the application
-    CMD ["node", "server.js"]
+   
