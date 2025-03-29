@@ -85,6 +85,13 @@ pipeline {
                 }
             }
         }
+        stage('Check Kubernetes Connection') {
+            steps {
+                script {
+                    bat "kubectl get nodes"
+                }
+            }
+        }
 
         stage('Deploy to Kubernetes') {
             steps {
