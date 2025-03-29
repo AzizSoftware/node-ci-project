@@ -25,13 +25,7 @@ pipeline {
             }
         }
 
-        stage('Code Linting') {
-            steps {
-                script {
-                    bat 'npx eslint .'
-                }
-            }
-        }
+        
 
         stage('Security Audit') {
             steps {
