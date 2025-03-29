@@ -1,21 +1,19 @@
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 3000;
-
-// Middleware for logging requests
-app.use((req, res, next) => {
-    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
-    next();
-});
 
 app.get('/', (req, res) => {
-    res.json({ message: 'Hello, Jenkins CI!' });
+  res.json({ message: 'Hello, Jenkins CI!' });
 });
 
-app.use((req, res) => {
-    res.status(404).json({ error: 'Not Found' });
+app.get('/notfound', (req, res) => {
+  res.status(404).json({ error: 'Not Found' });
 });
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+// Export the app for testing purposes
+if (require.main === module) {
+  app.listen(3000, () => {
+    console.log('Server is running on port 3000');
+  });
+}
+
+module.exports = app; // Export the app for testing
