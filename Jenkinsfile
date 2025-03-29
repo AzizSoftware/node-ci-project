@@ -89,7 +89,7 @@ pipeline {
         stage('Check Kubernetes Connection') {
             steps {
                 script {
-                    echo "kubernetes"
+                    bat "kubectl get nodes"
                 }
             }
         }
@@ -97,12 +97,33 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 script {
-                    echo "hello"
+                    bat """
+                    kubectl set image deployment/node-ci-project node-ci-project=${DOCKER_IMAGE}:${DOCKER_TAG} --record
+                    """
                 }
             }
         }
 
+        stage('Verify Deployment') {
+            steps {
+                script {
+                    bat """
+                    echo "Checking if pods are running..."
+                    kubectl rollout status deployment/node-ci-project --timeout=60s
+                    echo "Getting list of pods..."
+                    kubectl get pods -n ${K8S_NAMESPACE}
+                    """
+                }
+            }
+        }
     }
 
-    
+    post {
+        success {
+            echo "✅ Deployment successful!"
+        }
+        failure {
+            echo "❌ Deployment failed. Check logs!"
+        }
+    }
 }
