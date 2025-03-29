@@ -46,7 +46,7 @@ pipeline {
         stage('Archive Test Reports') {
             steps {
                 script {
-                    bat 'mkdir  coverage-report-files'
+                    bat 'mkdir  coverage-report-fil'
                     bat 'xcopy /E /I /Y coverage coverage-report'
                 }
                 archiveArtifacts artifacts: 'coverage-report/**', fingerprint: true
