@@ -9,7 +9,6 @@ app.get('/notfound', (req, res) => {
   res.status(404).json({ error: 'Not Found' });
 });
 
-// Export the app for testing purposes
 if (require.main === module) {
   app.listen(3000, () => {
     console.log('Server is running on port 3000');
