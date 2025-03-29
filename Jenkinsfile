@@ -4,7 +4,8 @@ pipeline {
     environment {
         SONAR_SCANNER_HOME = tool 'SonarQube'
         DOCKER_IMAGE = "aziz244/my-docker-repo"
-        DOCKER_TAG = env.GIT_COMMIT ?: "latest"
+        DOCKER_TAG = "${env.GIT_COMMIT ?: 'latest'}"
+
         K8S_NAMESPACE = 'default'
     }
 
