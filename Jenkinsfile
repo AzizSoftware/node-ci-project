@@ -75,8 +75,12 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    withDockerRegistry(credentialsId: 'docker-hub-credentials', url: 'https://index.docker.io/v1/') {
-                        bat "docker push ${DOCKER_IMAGE}:${DOCKER_TAG}"
+                     withDockerRegistry(credentialsId: 'dokcer-hub-credentials', url: 'https://index.docker.io/v1/') {
+                        def dockerTag = env.GIT_COMMIT ?: "latest"
+                        echo "Pushing Docker image with tag: ${dockerTag}"
+                        
+                        // Push the Docker image
+                        bat "docker push aziz244/my-docker-repo:${dockerTag}"
                     }
                 }
             }
