@@ -46,7 +46,8 @@ pipeline {
         stage('Archive Test Reports') {
             steps {
                 script {
-                    bat 'mkdir  coverage-report-fil'
+                    // ✅ Check if the folder exists before creating it
+                    bat 'if not exist coverage-report mkdir coverage-report'
                     bat 'xcopy /E /I /Y coverage coverage-report'
                 }
                 archiveArtifacts artifacts: 'coverage-report/**', fingerprint: true
