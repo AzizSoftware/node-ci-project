@@ -46,8 +46,8 @@ pipeline {
         stage('Archive Test Reports') {
             steps {
                 script {
-                    bat 'mkdir  coverage-report-file'
-                    bat 'xcopy /E /I /Y coverage coverage-reports'
+                    bat 'mkdir  coverage-report-files'
+                    bat 'xcopy /E /I /Y coverage coverage-report'
                 }
                 archiveArtifacts artifacts: 'coverage-report/**', fingerprint: true
                 junit 'jest-junit.xml'
