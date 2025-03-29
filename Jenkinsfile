@@ -55,6 +55,11 @@ pipeline {
         }
 
         stage('SonarQube Analysis') {
+            steps {
+                script{
+                    echo "sonar tests"
+                }
+            }
             
         }
 
