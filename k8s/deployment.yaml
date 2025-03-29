@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-ci-project
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: node-ci-project
+  template:
+    metadata:
+      labels:
+        app: node-ci-project
+    spec:
+      containers:
+        - name: node-ci-project
+          image: aziz244/node-ci-project:latest
+          ports:
+            - containerPort: 3000
